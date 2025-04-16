@@ -14,9 +14,13 @@ class ListAttendances extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Action::make("Export ke Excel")
+                ->url(route('attendance-export'))
+                ->color("success")
+                ->icon("heroicon-o-arrow-down-tray"),
             Action::make("Tambah Presensi")
                 ->url(route('presensi'))
-                ->color("success"),
+                ->color("info"),
             Actions\CreateAction::make(),
         ];
     }

@@ -20,7 +20,13 @@ class OfficeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationGroup = 'Pengelola Kantor';
+
+    protected static ?string $navigationLabel = 'Cabang Kantor';
+    protected static ?string $label = 'Cabang Kantor';
+
+
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

@@ -31,7 +31,19 @@
                 <div class="">
                     <h2 class="text-2xl font-bold mb-2">Presensi</h2>
                     <div id="map" class="mb-4 rounded-lg border border-gray-300" wire:ignore></div>
-                    <form class="row g-3" wire:submit="store" enctype="multipart/form-data">
+
+                    @if (session()->has('error'))
+                        {{-- <div style="color:red;padding:10px;border:1px solid red; background-color: #fdd;"> --}}
+                        <div class="text-red-500 p-[10px] border border-red-500 bg-red-100">
+                            {{ session('error') }}
+
+                        </div>
+                        <button onclick="window.location.href='/admin/attendances'"
+                            class="px-4 py-2 mt-3 bg-red-500 hover:bg-red-700 text-white rounded cursor-pointer">Kembali
+                            Ke Halaman Awal</button>
+                    @endif
+
+                    <form class="row g-3 mt-3" wire:submit="store" enctype="multipart/form-data">
                         <button type="button" onclick="tagLocation()"
                             class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded cursor-pointer">Tag
                             Location</button>

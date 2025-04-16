@@ -20,6 +20,11 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
+    protected static ?string $navigationGroup = 'Pengelola Pengguna';
+
+    protected static ?string $navigationLabel = 'Pengguna';
+    protected static ?string $label = 'Pengguna';
+
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -40,7 +45,7 @@ class UserResource extends Resource
                                         ->email()
                                         ->required()
                                         ->maxLength(255),
-                                    Forms\Components\DateTimePicker::make('email_verified_at'),
+                                    Forms\Components\FileUpload::make('image'),
                                 ])
                         ]
                     ),
@@ -50,7 +55,7 @@ class UserResource extends Resource
                         [
                             Forms\Components\Section::make()
                                 ->schema([
-
+                                    Forms\Components\DateTimePicker::make('email_verified_at'),
                                     Forms\Components\TextInput::make('password')
                                         ->password()
                                         ->required(fn(string $context): bool => $context === "create")
@@ -73,6 +78,8 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
