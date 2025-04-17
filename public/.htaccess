@@ -23,7 +23,4 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
-    APP_ENV=production
-    Header add Content-Security-Policy "upgrade-insecure-requests"
-APP_DEBUG=false
 </IfModule>
