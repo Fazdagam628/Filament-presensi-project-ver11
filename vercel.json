@@ -26,9 +26,9 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "DB_CONNECTION": "mysql",
-        "DB_HOST": "4gg.h.filess.io",
-        "DB_PORT": "3306",
-        "DB_DATABASE": "filament_presensi_project_ver11",
-        "DB_USERNAME": "root"
+        "DB_HOST": "gezji.h.filess.io",
+        "DB_PORT": "3307",
+        "DB_DATABASE": "Employees_whendaytoo",
+        "DB_USERNAME": "Employees_whendaytoo"
     }
 }
