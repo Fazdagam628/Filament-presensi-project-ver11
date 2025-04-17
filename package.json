@@ -4,8 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "vercel-build": "composer install --ignore-platform-reqs && npm run build"
-
+        "vercel-build": "npm run build && cp -R public/build public_storage/build"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
