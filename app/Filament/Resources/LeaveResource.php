@@ -93,7 +93,7 @@ class LeaveResource extends Resource
                         'approved' => 'success',
                         'rejected' => 'danger',
                     })
-                    ->description(fn(Leave $record): string => $record->note ?? '')
+                    ->description(fn(Leave $record): string => $record->note ?? 'Catatan tidak tersedia')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

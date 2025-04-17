@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Leave;
 use App\Models\Schedule;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
@@ -52,6 +53,29 @@ class AttendanceController extends Controller
             ->where("user_id", auth()->user()->id)
             ->first();
 
+        if (!$schedule) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pengguna tidak memiliki jadwal kerja.Hubungi admin untuk mendapatkan jadwal kerja.',
+                'data' => null,
+            ]);
+        }
+
+        $today = Carbon::today()->format('Y-m-d');
+        $approvedLeave = Leave::where('user_id', Auth::user()->id)
+            ->where('status', 'approved')
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->exists();
+
+        if ($approvedLeave) {
+            return response()->json([
+                'success' => false,
+                'message' => "Anda tidak dapat melakukan absensi karena sedang cuti.",
+                'data' => null,
+            ]);
+        }
+
         if ($schedule->is_banned) {
             return response()->json([
                 'success' => false,
@@ -84,6 +108,29 @@ class AttendanceController extends Controller
         }
 
         $schedule = Schedule::where('user_id', Auth::user()->id)->first();
+
+        if (!$schedule) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pengguna tidak memiliki jadwal kerja.Hubungi admin untuk mendapatkan jadwal kerja.',
+                'data' => null,
+            ]);
+        }
+
+        $today = Carbon::today()->format('Y-m-d');
+        $approvedLeave = Leave::where('user_id', Auth::user()->id)
+            ->where('status', 'approved')
+            ->whereDate('start_date', '<=', $today)
+            ->whereDate('end_date', '>=', $today)
+            ->exists();
+
+        if ($approvedLeave) {
+            return response()->json([
+                'success' => false,
+                'message' => "Anda tidak dapat melakukan absensi karena sedang cuti.",
+                'data' => null,
+            ]);
+        }
 
         if ($schedule) {
             $attendance = Attendance::where('user_id', Auth::user()->id)->whereDate('created_at', date("Y-m-d"))->first();
@@ -171,6 +218,17 @@ class AttendanceController extends Controller
             'success' => true,
             'message' => 'Success Banned Schedule',
             'data' => $schedule
+        ]);
+    }
+
+    public function getImage()
+    {
+        $user = auth()->user();
+        return response()->json([
+            'success' => true,
+            'message' => 'Success get image',
+            'data' => $user->getImageUrlAttribute()
+            // 'data' => $user->image_url  //laravel accessor
         ]);
     }
 }
