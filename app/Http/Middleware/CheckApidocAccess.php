@@ -20,6 +20,7 @@ class CheckApidocAccess
             abort(403, 'Unauthorized access to API documentation');
         }
 
+        $user = auth()->user();
         if (Auth::user()->hasRole('super_admin')) {
             return $next($request);
         }
